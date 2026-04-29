@@ -988,7 +988,16 @@
               <div class="form-field"><input type="text" id="leadName" placeholder="Your name" required/></div>
               <div class="form-field"><input type="tel" id="leadPhone" placeholder="Phone number" required/></div>
               <div class="form-field"><input type="email" id="leadEmail" placeholder="Email address (optional)"/></div>
-              <button class="calc-submit" onclick="submitLead()">SEND MY ESTIMATE & REQUEST CALLBACK</button>
+              <form id="estimatorForm" action="https://formspree.io/f/mwvyenvd" method="POST">
+  <input type="hidden" name="service_type" id="hiddenType"/>
+  <input type="hidden" name="material_grade" id="hiddenGrade"/>
+  <input type="hidden" name="square_footage" id="hiddenSqft"/>
+  <input type="hidden" name="estimate_range" id="hiddenRange"/>
+  <input type="text" name="name" id="leadName" placeholder="Your name" required/>
+  <input type="tel" name="phone" id="leadPhone" placeholder="Phone number" required/>
+  <input type="email" name="email" id="leadEmail" placeholder="Email address (optional)"/>
+  <button type="submit" class="calc-submit">SEND MY ESTIMATE & REQUEST CALLBACK</button>
+</form>
               <div style="text-align:center; margin-top:10px;">
                 <span style="font-size:11px; color:var(--text-muted); font-weight:300;">No spam. We'll call within 1 business day.</span>
               </div>
@@ -1227,16 +1236,18 @@
     document.getElementById('progressFill').style.width = '100%';
   }
 
-  function submitLead() {
+function submitLead() {
     const name = document.getElementById('leadName').value.trim();
     const phone = document.getElementById('leadPhone').value.trim();
     if (!name || !phone) {
       alert('Please enter your name and phone number.');
       return;
     }
-    document.getElementById('leadForm').classList.remove('visible');
-    document.getElementById('calcSuccess').classList.add('visible');
-    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('hiddenType').value = selections.type;
+    document.getElementById('hiddenGrade').value = selections.grade;
+    document.getElementById('hiddenSqft').value = document.getElementById('sqftInput').value;
+    document.getElementById('hiddenRange').value = document.getElementById('leadResultRange').textContent;
+    document.getElementById('estimatorForm').submit();
   }
 </script>
 </body>
