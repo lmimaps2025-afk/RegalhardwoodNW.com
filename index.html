@@ -1236,18 +1236,11 @@
     document.getElementById('progressFill').style.width = '100%';
   }
 
-function submitLead() {
-    const name = document.getElementById('leadName').value.trim();
-    const phone = document.getElementById('leadPhone').value.trim();
-    if (!name || !phone) {
-      alert('Please enter your name and phone number.');
-      return;
-    }
+function populateHidden() {
     document.getElementById('hiddenType').value = selections.type;
     document.getElementById('hiddenGrade').value = selections.grade;
     document.getElementById('hiddenSqft').value = document.getElementById('sqftInput').value;
     document.getElementById('hiddenRange').value = document.getElementById('leadResultRange').textContent;
-    document.getElementById('estimatorForm').submit();
   }
 </script>
 </body>
