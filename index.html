@@ -918,7 +918,7 @@
               </div>
             </div>
 
-            <!-- STEP 2: Material grade (hidden for refinish) -->
+            <!-- STEP 2: Material grade -->
             <div class="calc-step" id="step2">
               <div class="step-label">Step 2 of 3</div>
               <div class="step-q" id="step2q">What material grade are you looking for?</div>
@@ -977,37 +977,37 @@
               </div>
             </div>
 
-            <!-- Lead capture -->
+            <!-- Lead capture — single clean form posting to Formspree -->
             <div class="lead-form" id="leadForm">
               <div class="calc-result" id="leadResult">
                 <div class="result-label">YOUR ESTIMATE</div>
                 <div class="result-range" id="leadResultRange">—</div>
                 <div class="result-sub">Labor + Materials · Regal Hardwood Flooring</div>
               </div>
-              <p class="lead-intro" style="margin-top:16px;">Enter your info and we'll send this estimate to your phone or email — plus confirm availability for a free in-home walkthrough.</p>
-              <div class="form-field"><input type="text" name="name" id="leadName" placeholder="Your name" required/></div>
-              <div class="form-field"><input type="tel" id="leadPhone" placeholder="Phone number" required/></div>
-              <div class="form-field"><input type="email" name="email" id="leadEmail" placeholder="Email address (optional)"/></div>
               <form id="estimatorForm" action="https://formspree.io/f/mwvyenvd" method="POST">
-  <input type="hidden" name="service_type" id="hiddenType"/>
-  <input type="hidden" name="material_grade" id="hiddenGrade"/>
-  <input type="hidden" name="square_footage" id="hiddenSqft"/>
-  <input type="hidden" name="estimate_range" id="hiddenRange"/>
-
-  <button type="submit" class="calc-submit">SEND MY ESTIMATE & REQUEST CALLBACK</button>
-</form>
-              <div style="text-align:center; margin-top:10px;">
-                <span style="font-size:11px; color:var(--text-muted); font-weight:300;">No spam. We'll call within 1 business day.</span>
-              </div>
+                <input type="hidden" name="service_type" id="hiddenType"/>
+                <input type="hidden" name="material_grade" id="hiddenGrade"/>
+                <input type="hidden" name="square_footage" id="hiddenSqft"/>
+                <input type="hidden" name="estimate_range" id="hiddenRange"/>
+                <p class="lead-intro" style="margin-top:16px;">Enter your info and we'll send this estimate to your phone or email — plus confirm availability for a free in-home walkthrough.</p>
+                <div class="form-field"><input type="text" name="name" id="leadName" placeholder="Your name" required/></div>
+                <div class="form-field"><input type="tel" name="phone" id="leadPhone" placeholder="Phone number" required/></div>
+                <div class="form-field"><input type="email" name="email" id="leadEmail" placeholder="Email address (optional)"/></div>
+                <button type="submit" class="calc-submit" onclick="populateHidden()">SEND MY ESTIMATE & REQUEST CALLBACK</button>
+                <div style="text-align:center; margin-top:10px;">
+                  <span style="font-size:11px; color:var(--text-muted); font-weight:300;">No spam. We'll call within 1 business day.</span>
+                </div>
+              </form>
             </div>
 
-            <!-- Success -->
+            <!-- Success (shown only if JS intercepts — Formspree will redirect by default) -->
             <div class="calc-success" id="calcSuccess">
               <div class="success-icon">✓</div>
               <div class="success-h">Estimate sent!</div>
               <p class="success-p">Jade will follow up within one business day to confirm your project details and schedule a free in-home walkthrough.</p>
               <p style="margin-top:12px; font-size:13px; color:var(--text-muted);">Questions now? Call <a href="tel:971-431-8823" style="color:var(--green); font-weight:500;">971-431-8823</a></p>
             </div>
+
           </div>
         </div>
       </div>
@@ -1114,7 +1114,7 @@
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2025 Regal Hardwood Flooring LLC. All rights reserved.</span>
-    <span class="footer-license">Oregon Licensed Contractor · CCB #[PENDING]</span>
+    <span class="footer-license">Oregon Licensed Contractor · CCB #113140</span>
   </div>
   <div style="border-top: 0.5px solid rgba(255,255,255,0.04); margin-top: 16px; padding-top: 16px;">
     <p style="font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.2); line-height: 1.6;">
@@ -1126,7 +1126,6 @@
 <script>
   const selections = { type: null, grade: null };
 
-  // Labor: refinish uses a ±15% range for wiggle room on condition
   const laborRates = {
     hardwood: { low: 4.50,  high: 4.50  },
     refinish: { low: 3.40,  high: 4.60  },
@@ -1151,7 +1150,6 @@
     btn.classList.add('selected');
 
     if (key === 'type' && selections.type !== val) {
-      // Switching service type — reset grade and step 3
       selections.grade = null;
       document.querySelectorAll('#gradeOptions .option-btn').forEach(b => b.classList.remove('selected'));
       resetStep3();
@@ -1203,7 +1201,6 @@
 
     const type = selections.type;
     const grade = selections.grade || 'contractor';
-
     const rates = laborRates[type];
     const matRate = materialRates[type][grade] || 0;
 
@@ -1234,11 +1231,11 @@
     document.getElementById('progressFill').style.width = '100%';
   }
 
-function populateHidden() {
-    document.getElementById('hiddenType').value = selections.type;
-    document.getElementById('hiddenGrade').value = selections.grade;
-    document.getElementById('hiddenSqft').value = document.getElementById('sqftInput').value;
-    document.getElementById('hiddenRange').value = document.getElementById('leadResultRange').textContent;
+  function populateHidden() {
+    document.getElementById('hiddenType').value = selections.type || '';
+    document.getElementById('hiddenGrade').value = selections.grade || '';
+    document.getElementById('hiddenSqft').value = document.getElementById('sqftInput').value || '';
+    document.getElementById('hiddenRange').value = document.getElementById('leadResultRange').textContent || '';
   }
 </script>
 </body>
