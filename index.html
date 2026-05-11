@@ -99,7 +99,7 @@
   ]
 }
 </script>
-
+ 
 <!-- Schema 2: Service — Floor Blending (flagship) -->
 <script type="application/ld+json">
 {
@@ -126,7 +126,7 @@
   }
 }
 </script>
-
+ 
 <!-- Schema 3: Service — Hardwood Refinishing -->
 <script type="application/ld+json">
 {
@@ -157,7 +157,7 @@
   }
 }
 </script>
-
+ 
 <!-- Schema 4: Service — Hardwood Installation -->
 <script type="application/ld+json">
 {
@@ -178,7 +178,7 @@
   ]
 }
 </script>
-
+ 
 <!-- Schema 5: FAQPage — GEO optimized for AI citation -->
 <script type="application/ld+json">
 {
@@ -596,7 +596,7 @@ footer{background:#0c140c;padding:60px 5vw 32px}
         <div class="svc-tags"><span class="tag">SANDING</span><span class="tag">STAINING</span><span class="tag">BLENDING</span><span class="tag">SEALING</span></div>
       </div>
       <div class="svc-card">
-        <img src="images/lvp-modern-entryway.jpg" alt="Premium LVP installation Portland" class="svc-img"/>
+        <img src="images/stoneway-lvp.jpg" alt="Premium LVP installation Portland" class="svc-img"/>
         <div class="svc-num">03</div><h3 class="svc-title">Premium LVP Installation</h3>
         <p class="svc-desc">Luxury vinyl plank for high-moisture areas, basements, and spaces where hardwood isn't the right answer. Installed to the same standard as our hardwood work — not as an afterthought.</p>
         <div class="svc-tags"><span class="tag">WATERPROOF</span><span class="tag">RESIDENTIAL</span><span class="tag">HIGH-END</span></div>
@@ -626,7 +626,7 @@ footer{background:#0c140c;padding:60px 5vw 32px}
           </div>
           <div class="calc-body">
             <div class="progress-bar"><div class="progress-fill" id="pFill" style="width:50%"></div></div>
-
+ 
             <div class="calc-step active" id="s1">
               <div class="step-label">STEP 1 OF 2</div>
               <div class="step-q">What type of project?</div>
@@ -638,7 +638,7 @@ footer{background:#0c140c;padding:60px 5vw 32px}
               </div>
               <div class="calc-nav"><span></span><button class="calc-next" id="n1" onclick="toStep(2)" disabled>NEXT →</button></div>
             </div>
-
+ 
             <div class="calc-step" id="s2">
               <div class="step-label">STEP 2 OF 2</div>
               <div class="step-q">Approximate square footage?</div>
@@ -774,18 +774,18 @@ function toggleFaq(el){
   icon.textContent=open?'+':'−';
   el.style.background=open?'var(--white)':'var(--cream)';
 }
-
+ 
 function goToSpecialty(){
   window.location.href='estimate.html';
 }
-
+ 
 const sel={type:null};
 const labor={
   hardwood:{low:6.00,high:8.00},
   refinish:{low:4.50,high:5.50},
   lvp:{low:3.50,high:4.50}
 };
-
+ 
 function pick(btn,key,val){
   btn.closest('.option-grid').querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
@@ -799,15 +799,15 @@ function pick(btn,key,val){
     }
   }
 }
-
+ 
 function toStep(n){
   document.querySelectorAll('.calc-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
   document.getElementById('pFill').style.width={1:50,2:100}[n]+'%';
 }
-
+ 
 function fmt(n){return'$'+Math.round(n).toLocaleString();}
-
+ 
 function calc(){
   const sf=parseInt(document.getElementById('sqft').value);
   if(!sf||sf<1){document.getElementById('result').style.display='none';return;}
